@@ -1,0 +1,30 @@
+name: Export Spotify Playlist
+
+on:
+  workflow_dispatch:
+    inputs:
+      playlist:
+        description: 'Playlist ID or URL'
+        required: false
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install spotipy pandas
+
+      - name: Run Spotify Export
+        env:
+          CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          REDIRECT_URI: ${{ secrets.SPOTIFY_REDIRECT_URI }}
+        run: |
+          python playlist_exporter/exporter.py ${{ github.event.inputs.playlist }}
