@@ -49,7 +49,7 @@ def assign_genre_scores(genres_list):
         "bachata": 0.6,
         "k-pop": 0.1,
         "reggae": 0.3,
-        "metal": 1.0,
+        "metal": 0.9,
         "punk": 0.65,
         "alternative": 0.55,
         "r&b": 0.6,
